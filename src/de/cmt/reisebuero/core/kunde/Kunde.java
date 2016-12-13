@@ -8,6 +8,7 @@ public class Kunde {
 
 	private int id;
 	
+	// Änderung in Branch FeatureX
 	private String vorname;
 	
 	// Required, Min-Length 2, Max-Length 255
@@ -96,6 +97,4 @@ public class Kunde {
 	public void setGeburtsdatum(Date geburtsdatum) {
 		this.geburtsdatum = geburtsdatum;
 	}
-	
-	
 }

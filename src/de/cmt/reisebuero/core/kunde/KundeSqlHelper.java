@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import de.cmt.reisebuero.core.exception.InvalidAttributeValueException;
+
 public class KundeSqlHelper 
 {
 	/**
@@ -45,5 +47,59 @@ public class KundeSqlHelper
 		con.close();
 
 		return kunde;
+	}
+	
+	public static final int ALL_KUNDEN = -1;
+	
+	public static Kunde[] getKunden(Connection con, int status) throws SQLException, InvalidAttributeValueException {
+		String sql = "SELECT * FROM kunden";
+		
+		if (status != ALL_KUNDEN) {
+			sql += " WHERE state = ?";
+		}
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		if (status != ALL_KUNDEN) {
+			ps.setInt(1, status);
+		}
+		
+		ps.executeQuery();
+		
+		ResultSet rs = ps.getResultSet();
+		
+		// Trick um die Anzahl der Datensätze zu bekommen - Alternative ArrayListe
+		rs.last();
+		int count = rs.getRow();
+		rs.beforeFirst();
+		
+		if (count == 0) {
+			con.close();
+			
+			return null;
+		}
+		
+		Kunde[] kunden = new Kunde[count];
+		
+		for (int i = 0; i < kunden.length; i++)
+		{
+			rs.next();
+			
+			kunden[i] = new Kunde(rs.getString("nachname"));
+			
+			kunden[i].setId(rs.getInt("id"));
+			kunden[i].setVorname(rs.getString("vorname"));
+			kunden[i].setBenutzername(rs.getString("benutzername"));
+			kunden[i].setPassword(rs.getString("passwort"));
+			
+			kunden[i].setGeburtsdatum(new java.util.Date(rs.getDate("geburtsdatum").getTime()));
+			kunden[i].setPlz(rs.getString("plz"));
+			kunden[i].setState(rs.getInt("state"));
+		}
+		
+		rs.close();
+		con.close();
+		
+		return kunden;
 	}
 }

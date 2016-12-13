@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import de.cmt.reisebuero.core.exception.InvalidAttributeValueException;
-
 public class KundeSqlHelper 
 {
 	/**
@@ -51,7 +49,7 @@ public class KundeSqlHelper
 	
 	public static final int ALL_KUNDEN = -1;
 	
-	public static Kunde[] getKunden(Connection con, int status) throws SQLException, InvalidAttributeValueException {
+	public static Kunde[] getKunden(Connection con, int status) throws SQLException, Exception {
 		String sql = "SELECT * FROM kunden";
 		
 		if (status != ALL_KUNDEN) {

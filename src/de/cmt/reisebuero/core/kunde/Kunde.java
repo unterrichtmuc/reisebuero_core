@@ -2,8 +2,6 @@ package de.cmt.reisebuero.core.kunde;
 
 import java.util.Date;
 
-import de.cmt.reisebuero.core.exception.InvalidAttributeValueException;
-
 public class Kunde {
 
 	private int id;
@@ -25,7 +23,7 @@ public class Kunde {
 	
 	private int state;	
 	
-	public Kunde(String nachname) throws InvalidAttributeValueException {
+	public Kunde(String nachname) throws Exception {
 		super();
 		this.setNachname(nachname);
 	}
@@ -50,9 +48,9 @@ public class Kunde {
 		return nachname;
 	}
 
-	public void setNachname(String nachname) throws InvalidAttributeValueException {
+	public void setNachname(String nachname) throws Exception {
 		if (nachname.length() < 2) {
-			throw new InvalidAttributeValueException("Invalid value for nachname"); 	
+			throw new Exception("Invalid value for nachname"); 	
 		}
 		
 		this.nachname = nachname;

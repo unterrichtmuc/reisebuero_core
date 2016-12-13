@@ -97,4 +97,8 @@ public class Kunde {
 	public void setGeburtsdatum(Date geburtsdatum) {
 		this.geburtsdatum = geburtsdatum;
 	}
+	
+	public String toString() {
+		return "" + id;
+	}
 }

@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class Reise {
 	private int id;
-	private String titel;
-	private String beschreibung;
-	private Date beginn;
+	private String titel = "";
+	private String beschreibung = "";
+	private Date beginn = new Date();
 	private int dauer;
 	private int art;
 	private double preis;
-	private String land;
+	private String land = "";
 	private short state;
 		
 	
